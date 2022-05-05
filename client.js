@@ -34,3 +34,13 @@ client.getTodos( {}, (err, response) => {
         console.log(`Error: ${err}`);
     }
 });
+
+// in questo caso non ci sarà callback, ma un stream
+const call = client.streamTodos();
+call.on("data", (todo) => {
+    console.log(`Received response from server: ${JSON.stringify(todo)}`);
+});
+call.on("end", () => {
+    console.log("Stream ended");
+});
+

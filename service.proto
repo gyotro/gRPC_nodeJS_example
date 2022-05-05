@@ -6,7 +6,7 @@ service Todo {
     rpc createTodo(TodoItem) returns (TodoItem);
     // non si possono non mettere parametri, va inbdicato void
     rpc getTodos(void_nothing) returns (TodoItems);
-    
+    rpc streamTodos(void_nothing) returns (stream TodoItem);
 }
 
 message void_nothing {}

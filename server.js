@@ -23,7 +23,8 @@ server.addService(todopackage.Todo.service,
         // metodo create (la chiave dovrà avere il nome del metodo definito nella nostra protobuffer)
         "createTodo" : createTodo,
         // metodo read (la chiave dovrà avere il nome del metodo definito nella nostra protobuffer)
-        "getTodos" : getTodos
+        "getTodos" : getTodos,
+        "streamTodos" : streamTodos
     });
 
 server.start();
@@ -46,3 +47,11 @@ function getTodos(call, callback) {
     console.log(`Sending response: ${JSON.stringify(todos)}`);
     callback(null, { items: todos });
 }
+
+function streamTodos(call, callback) {
+    // per gli stream non avremo una callback
+    todos.forEach(todo => {
+        call.write(todo);
+    });
+    call.end();
+ }
